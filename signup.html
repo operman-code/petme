@@ -1,134 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - PetMe.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
+            font-family: 'Inter', sans-serif;
             margin: 0;
-            padding: 0;
-            font-family: "Inter", sans-serif;
-            background: #f6f3ff;
+            background: #f9f9f9;
         }
 
-        .container {
-            width: 100%;
-            max-width: 420px;
-            padding: 30px;
-            margin: 70px auto;
+        .auth-container {
+            max-width: 480px;
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0px 0px 20px rgba(0,0,0,0.08);
+            margin: 60px auto;
+            padding: 35px;
+            border-radius: 14px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.1);
         }
 
         h2 {
             text-align: center;
-            color: #5a2ecf;
+            color: #4b2aad;
+            margin-bottom: 15px;
+        }
+
+        p {
+            text-align: center;
+            color: #666;
             margin-bottom: 25px;
-            font-size: 28px;
-            font-weight: 700;
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .auth-group {
+            margin-bottom: 18px;
         }
 
-        label {
+        .auth-group label {
+            display: block;
+            margin-bottom: 6px;
             font-size: 14px;
-            font-weight: 600;
-            color: #4a4a4a;
+            color: #444;
         }
 
-        input {
+        .auth-group input {
             width: 100%;
-            margin-top: 6px;
             padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 15px;
+            border-radius: 10px;
+            border: 1.5px solid #ccc;
         }
 
-        button {
+        .auth-btn {
             width: 100%;
             padding: 14px;
-            background: #5a2ecf;
-            border: none;
-            border-radius: 8px;
-            color: #fff;
             font-size: 16px;
-            font-weight: 600;
+            border-radius: 10px;
+            border: none;
+            background: #4b2aad;
+            color: white;
             cursor: pointer;
-            transition: 0.25s;
+            transition: 0.3s;
         }
 
-        button:hover {
-            background: #4b22b2;
+        .auth-btn:hover {
+            background: #6b41e5;
         }
 
-        .bottom-text {
+        .auth-footer {
             text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
+            margin-top: 20px;
         }
 
-        .bottom-text a {
-            color: #5a2ecf;
-            font-weight: 600;
-            text-decoration: none;
+        .auth-footer a {
+            color: #4b2aad;
         }
-
     </style>
 </head>
 
 <body>
-    <div class="container">
+
+    <!-- NAV SAME AS INDEX -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-paw"></i>
+                <span>PetMe.com</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="signin.html">Login</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="auth-container">
         <h2>Create Account</h2>
-        
-        <div class="form-group">
-            <label>Full Name</label>
-            <input type="text" id="name" placeholder="Your name" />
-        </div>
+        <p>Join the PetMe family</p>
 
-        <div class="form-group">
-            <label>Email</label>
-            <input type="email" id="email" placeholder="Your email" />
-        </div>
+        <form id="signupForm">
+            <div class="auth-group">
+                <label>Full Name</label>
+                <input type="text" id="name" required>
+            </div>
 
-        <div class="form-group">
-            <label>Password</label>
-            <input type="password" id="password" placeholder="Create password" />
-        </div>
+            <div class="auth-group">
+                <label>Email</label>
+                <input type="email" id="email" required>
+            </div>
 
-        <button onclick="signup()">Sign Up</button>
+            <div class="auth-group">
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
 
-        <div class="bottom-text">
-            Already have an account? <a href="signin.html">Sign In</a>
+            <button type="submit" class="auth-btn">Create Account</button>
+        </form>
+
+        <div class="auth-footer">
+            Already have an account? <a href="signin.html">Sign in</a>
         </div>
     </div>
 
-    <script>
-        async function signup() {
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            const res = await fetch("YOUR_BACKEND_URL/auth/signup", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name, email, password }),
-            });
-
-            const data = await res.json();
-
-            if (res.ok) {
-                alert("Account created successfully!");
-                window.location.href = "signin.html";
-            } else {
-                alert(data.message || "Signup failed");
-            }
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
