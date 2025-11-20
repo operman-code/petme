@@ -141,7 +141,7 @@
             const res = await fetch('http://petme.operman.in:3000/signup', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fullName, email, password })
+                body: JSON.stringify({ full_name: fullName, email, password })
             });
 
             const data = await res.json();
