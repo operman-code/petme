@@ -109,25 +109,25 @@
 
     <script>
         const loginForm = document.getElementById('loginForm');
-
+        
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-
+        
             const email = loginForm.email.value;
             const password = loginForm.password.value;
-
+        
             try {
-                const response = await fetch('http://localhost:3000/login', { // replace with your backend URL
+                const response = await fetch('http://petme.operman.in:3000/login', { // backend URL
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
-
+        
                 const data = await response.json();
-
+        
                 if (response.ok) {
                     alert('Login successful! Welcome ' + data.user.full_name); // match your DB field
-                    window.location.href = 'profile.html'; // redirect after login
+                    window.location.href = 'profile.html';
                 } else {
                     alert(data.message);
                 }
