@@ -24,6 +24,21 @@
                 <li><a href="#how-it-works">How It Works</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
+
+            <div class="nav-user">
+                <!-- Visible when NOT logged in -->
+                <a href="signin.html" id="loginBtn" class="nav-auth-btn">
+                    <i class="fas fa-sign-in-alt"></i>
+                </a>
+                <a href="signup.html" id="signupBtn" class="nav-auth-btn">
+                    <i class="fas fa-user-plus"></i>
+                </a>
+
+                <!-- Visible when logged in -->
+                <a href="profile.html" id="profileIcon" class="nav-profile" style="display:none;">
+                    <img src="assets/default-profile.jpg" alt="Profile">
+                </a>
+            </div>
             <div class="nav-toggle">
                 <span></span>
                 <span></span>
@@ -349,4 +364,31 @@
 
     <script src="script.js"></script>
 </body>
+    <style>
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-auth-btn i {
+            font-size: 1.2rem;
+            color: #333;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-auth-btn i:hover {
+            color: #6366f1;
+        }
+
+        .nav-profile img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid #6366f1;
+            cursor: pointer;
+            object-fit: cover;
+        }
+    </style>
 </html>

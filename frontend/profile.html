@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile - PetMe.com</title>
+
+    <!-- Fonts and Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #f3f2ff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Same Logo as SignIn/SignUp */
+        .top-logo {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-logo i {
+            font-size: 32px;
+            color: #4b2aad;
+        }
+
+        .top-logo span {
+            color: #4b2aad;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        /* Profile Card */
+        .profile-container {
+            max-width: 700px;
+            background: #fff;
+            margin: 120px auto;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+
+        .profile-header {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #ddd;
+            margin: 0 auto 20px;
+            overflow: hidden;
+        }
+
+        .profile-img img {
+            width: 100%;
+        }
+
+        h2 {
+            margin: 0;
+            color: #4b2aad;
+        }
+
+        /* Form Styling */
+        .input-group {
+            margin-top: 25px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border-radius: 10px;
+            border: 1px solid #c8c8c8;
+            background: #fafafa;
+            font-size: 15px;
+        }
+
+        .input-group input:focus {
+            border-color: #4b2aad;
+            outline: none;
+        }
+
+        /* Save Button */
+        .save-btn {
+            margin-top: 30px;
+            background: #4b2aad;
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .save-btn:hover {
+            background: #371d86;
+        }
+
+        /* Logout */
+        .logout-btn {
+            margin-top: 15px;
+            background: #d42828;
+            color: white;
+            padding: 12px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background: #ff3d3d;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SAME Logo as Sign-In & Sign-Up -->
+    <div class="top-logo">
+        <i class="fas fa-paw"></i>
+        <span>PetMe.com</span>
+    </div>
+
+    <div class="profile-container">
+
+        <div class="profile-header">
+            <div class="profile-img">
+                <img id="userImage" src="https://i.imgur.com/5cQZ1QF.png" alt="User">
+            </div>
+
+            <h2 id="userName">User Name</h2>
+        </div>
+
+        <!-- Editable Profile Form -->
+        <form id="profileForm">
+
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="nameInput" placeholder="Enter full name" />
+            </div>
+
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" id="emailInput" placeholder="Enter email" />
+            </div>
+
+            <div class="input-group">
+                <label>Change Password (optional)</label>
+                <input type="password" id="passwordInput" placeholder="New password" />
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+        </form>
+
+        <button class="logout-btn" id="logoutBtn">Logout</button>
+    </div>
+
+    <script>
+        // Example: Fetch user data from backend API
+        document.addEventListener("DOMContentLoaded", async () => {
+            const user = {
+                name: "John Doe",
+                email: "john@example.com"
+            };
+
+            // Fill data in UI
+            document.getElementById("userName").innerText = user.name;
+            document.getElementById("nameInput").value = user.name;
+            document.getElementById("emailInput").value = user.email;
+        });
+
+        // Save Changes
+        document.getElementById("profileForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const updatedUser = {
+                name: document.getElementById("nameInput").value,
+                email: document.getElementById("emailInput").value,
+                password: document.getElementById("passwordInput").value
+            };
+
+            console.log("Send to backend:", updatedUser);
+
+            alert("Profile updated successfully!");
+        });
+    </script>
+
+</body>
+</html>

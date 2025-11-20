@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign In - PetMe</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #1f1f1f, #2a2a2a);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* EXACT logo from index page — now white */
+        .top-logo {
+            position: absolute;
+            top: 25px;
+            left: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .top-logo i {
+            font-size: 32px;
+            color: white;
+        }
+
+        .top-logo span {
+            color: #fff;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .card {
+            background: #111;
+            width: 380px;
+            padding: 40px;
+            border-radius: 14px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            border: 1px solid #333;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        h2 { color: #fff; text-align: center; margin-bottom: 10px; }
+        p { color: #bbb; text-align: center; margin-bottom: 25px; }
+
+        .input-group { margin-bottom: 20px; }
+        .input-group label { color: #ccc; font-size: 14px; margin-bottom: 6px; display: block; }
+
+        .input-group input {
+            width: 100%; padding: 12px; background: #1a1a1a;
+            border: 1px solid #333; color: #fff; border-radius: 6px;
+        }
+
+        .input-group input:focus {
+            border-color: #6366f1; outline: none;
+        }
+
+        button {
+            width: 100%; padding: 13px; background: #6366f1;
+            border: none; border-radius: 6px; color: white; font-size: 16px;
+            cursor: pointer; transition: background 0.2s;
+        }
+        button:hover { background: #4f4dd8; }
+
+        .footer-text {
+            color: #bbb; text-align: center; margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer-text a { color: #facc15; text-decoration: none; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- EXACT SAME LOGO AS INDEX PAGE -->
+    <div class="top-logo">
+        <i class="fas fa-paw"></i>
+        <span>PetMe.com</span>
+    </div>
+
+    <div class="card">
+        <h2>Welcome Back</h2>
+        <p>Sign in to continue exploring pets</p>
+
+        <form>
+            <div class="input-group">
+                <label>Email</label>
+                <input type="email" placeholder="Enter your email" required />
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" placeholder="Enter password" required />
+            </div>
+
+            <button type="submit">Sign In</button>
+        </form>
+
+        <div class="footer-text">
+            Don't have an account?  
+            <a href="signup.html">Create one</a>
+        </div>
+    </div>
+
+</body>
+</html>
