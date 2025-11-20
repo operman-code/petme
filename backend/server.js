@@ -1,6 +1,77 @@
+import express from 'express';
 import dotenv from 'dotenv';
-dotenv.config();
-import app from './src/app.js';
+import mysql from 'mysql2/promise';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
+dotenv.config();
+const app = express();
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`PetMe backend listening on ${PORT}`));
+
+// Middleware
+app.use(cors());
+app.use(bodyParser.json());
+
+// MariaDB connection pool
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,      // your remote DB host
+    user: process.env.DB_USER,      // DB user
+    password: process.env.DB_PASS,  // DB password
+    database: process.env.DB_NAME,  // DB name
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
+});
+
+// Signup route
+app.post('/signup', async (req, res) => {
+    try {
+        const { full_name, email, password } = req.body;
+
+        if (!full_name || !email || !password) {
+            return res.status(400).json({ message: 'All fields are required' });
+        }
+
+        // Check if email already exists
+        const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+        if (rows.length > 0) {
+            return res.status(400).json({ message: 'Email already registered' });
+        }
+
+        // Insert new user
+        await pool.query(
+            'INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)',
+            [full_name, email, password]
+        );
+
+        res.status(201).json({ message: 'Signup successful' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Login route
+app.post('/login', async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email and password required' });
+        }
+
+        const [rows] = await pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+
+        if (rows.length === 0) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        res.json({ message: 'Login successful', user: rows[0] });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error' });
+    }
+});
+
+// Start server
+app.listen(PORT, () => console.log(`PetMe backend listening on port ${PORT}`));
