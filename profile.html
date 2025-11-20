@@ -1,114 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Your Profile - PetMe.com</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - PetMe.com</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         body {
             margin: 0;
-            font-family: "Inter", sans-serif;
-            background: #f4f0ff;
+            background: #f3f2ff;
+            font-family: 'Inter', sans-serif;
         }
 
-        .container {
-            max-width: 520px;
+        .profile-container {
+            max-width: 700px;
+            background: #fff;
             margin: 60px auto;
-            padding: 30px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0px 0px 25px rgba(0,0,0,0.1);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+        }
+
+        .profile-header {
             text-align: center;
         }
 
-        h2 {
-            color: #5a2ecf;
-            font-size: 30px;
-        }
-
-        .profile-pic {
-            width: 110px;
-            height: 110px;
+        .profile-img {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            margin: 20px auto;
             background: #ddd;
-            background-size: cover;
-            background-position: center;
+            margin: 0 auto 20px;
+            overflow: hidden;
         }
 
-        .info {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #444;
-            line-height: 28px;
+        .profile-img img {
+            width: 100%;
         }
 
-        button {
+        h2 {
+            margin: 0;
+            color: #4b2aad;
+        }
+
+        .info-box {
             margin-top: 25px;
-            padding: 12px 25px;
-            background: #5a2ecf;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-size: 16px;
-            cursor: pointer;
-            transition: .2s;
         }
 
-        button:hover {
-            background: #4b22b2;
+        .info-box p {
+            margin: 8px 0;
+            font-size: 16px;
+        }
+
+        .logout-btn {
+            margin-top: 25px;
+            display: block;
+            background: #d42828;
+            color: white;
+            padding: 14px;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .logout-btn:hover {
+            background: #ff3d3d;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Your Profile</h2>
 
-        <div id="profilePic" class="profile-pic"></div>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-paw"></i>
+                <span>PetMe.com</span>
+            </div>
 
-        <div class="info" id="info"></div>
+            <ul class="nav-menu">
+                <li><a href="index.html#home">Home</a></li>
+                <li><a href="index.html#about">About</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="#" id="logoutBtn">Logout</a></li>
+            </ul>
 
-        <button onclick="logout()">Logout</button>
+            <div class="nav-toggle">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="profile-img">
+                <img src="https://i.imgur.com/5cQZ1QF.png" alt="User">
+            </div>
+
+            <h2 id="userName">User Name</h2>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Email:</strong> <span id="userEmail"></span></p>
+            <p><strong>Joined:</strong> 2024</p>
+        </div>
+
+        <button class="logout-btn" id="logoutBtn2">Logout</button>
     </div>
 
-    <script>
-        async function loadProfile() {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                window.location.href = "signin.html";
-                return;
-            }
-
-            const res = await fetch("YOUR_BACKEND_URL/auth/me", {
-                headers: { Authorization: "Bearer " + token },
-            });
-
-            const data = await res.json();
-
-            if (!res.ok) {
-                window.location.href = "signin.html";
-                return;
-            }
-
-            document.getElementById("info").innerHTML = `
-                <b>Name:</b> ${data.name} <br>
-                <b>Email:</b> ${data.email}
-            `;
-
-            if (data.profile_pic) {
-                document.getElementById("profilePic").style.backgroundImage =
-                    \`url(${data.profile_pic})\`;
-            }
-        }
-
-        function logout() {
-            localStorage.removeItem("token");
-            window.location.href = "signin.html";
-        }
-
-        loadProfile();
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
