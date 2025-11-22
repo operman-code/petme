@@ -117,7 +117,7 @@
             const password = loginForm.password.value;
         
             try {
-                const response = await fetch('http://petme.operman.in:3000/login', { // backend URL
+                const response = await fetch('http://54.169.255.115:3000/login', { // backend URL
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
