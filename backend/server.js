@@ -74,4 +74,8 @@ app.post('/login', async (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => console.log(`PetMe backend listening on port ${PORT}`));
+app.listen(PORT, '0.0.0.0', () =>
+    console.log(`Backend running on port ${PORT}`)
+);
+
+
