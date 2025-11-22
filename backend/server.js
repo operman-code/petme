@@ -3,21 +3,35 @@ import dotenv from 'dotenv';
 import mysql from 'mysql2/promise';
 import cors from 'cors';
 import bodyParser from 'body-parser';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Needed to get __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
+// 👉 Serve frontend folder (public website)
+app.use(express.static(path.join(__dirname, '../frontend')));
+
+// 👉 Root route -> index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../frontend/index.html'));
+});
+
 // MariaDB connection pool
 const pool = mysql.createPool({
-    host: process.env.DB_HOST,      // your remote DB host
-    user: process.env.DB_USER,      // DB user
-    password: process.env.DB_PASS,  // DB password
-    database: process.env.DB_NAME,  // DB name
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
@@ -32,7 +46,7 @@ app.post('/signup', async (req, res) => {
             return res.status(400).json({ message: 'All fields are required' });
         }
 
-        // Check if email already exists
+        // Email exists?
         const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
         if (rows.length > 0) {
             return res.status(400).json({ message: 'Email already registered' });
@@ -60,7 +74,10 @@ app.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Email and password required' });
         }
 
-        const [rows] = await pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+        const [rows] = await pool.query(
+            'SELECT * FROM users WHERE email = ? AND password = ?',
+            [email, password]
+        );
 
         if (rows.length === 0) {
             return res.status(401).json({ message: 'Invalid credentials' });
@@ -73,9 +90,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-// Start server
+// Start server on public IP
 app.listen(PORT, '0.0.0.0', () =>
-    console.log(`Backend running on port ${PORT}`)
+    console.log(`🚀 Backend running on http://0.0.0.0:${PORT}`)
 );
-
-
